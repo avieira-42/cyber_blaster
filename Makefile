@@ -1,76 +1,94 @@
-# Configuration ------------------------------- #
-NAME = main
-VPATH = sources sources/utils sources/parse sources/math
-SRCS = read_rgb.c
-LDLIBS = 
-ASM = $(OBJS:.o=.s)
+LDFLAGS = -L $(LIBFT_DIR) -lft \
+          -L $(MLX_DIR) -lmlx \
+          -lX11 -lbsd -lXext -lX11 -lm
 
-# Defaults ------------------------------------ #
-RM := rm -f
-BUILD_PATH = build
-INC_PATH = includes
-OBJ_PATH = $(BUILD_PATH)/obj
-BIN = $(BUILD_PATH)/$(NAME)
-OBJS = $(addprefix $(OBJ_PATH)/, $(SRCS:.c=.o))
+OPTIMIZE =
 
-# Flags --------------------------------------- #
-CC = clang
-CPPFLAGS = $(addprefix -I,$(INC_PATH))
-CFLAGS = -Wall -Wextra -march=native -std=c11
-LDFLAGS =
-DEBUG = -g -Wpedantic -Wcast-qual -Wfloat-equal -Wswitch-default -Wsign-conversion
-ASAN = -fsanitize=address,undefined,leak -fno-omit-frame-pointer
-TSAN = -fsanitize=thread -fno-omit-frame-pointer
-FAST = -march=native -O3 -ffast-math -fstrict-aliasing
+INCLUDES = includes/
 
-# Pattern Rules: Compilation ------------------ #
-$(OBJ_PATH)/%.o: %.c | $(OBJ_PATH)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+CFLAGS = -I $(INCLUDES) -Wall -Wextra -Werror -g $(OPTIMIZE)
 
-# Linking
-$(BIN): $(OBJS) $(ASM) | $(BUILD_PATH)	
-	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
+CC = cc $(CFLAGS)
 
-# Assembly
-$(OBJ_PATH)/%.s: $(OBJ_PATH)/%.o
-	llvm-objdump -d --x86-asm-syntax=intel --no-show-raw-insn \
-	--no-leading-addr --no-leading-headers --symbolize-operands \
-	--pretty-pgo-analysis-map $< > $@
+MLX_DIR = libs/minilibx-linux/
+MLX = $(MLX_DIR)/libmlx.a
 
-# Directory
-$(OBJ_PATH):
-	@mkdir -p $@
-$(BUILD_PATH):
-	@mkdir -p $@
+LIBFT_DIR = libs/libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-# Phonies ------------------------------------- #
-all: $(BIN)
+INIT = code/init.c
+
+PARSE = code/parse.c
+
+INPUT = code/input.c
+
+CLEAN = code/clean.c
+
+RAY_CAST = code/ray_cast.c
+
+UPDATE = code/update.c
+
+RENDER = code/draw_line.c\
+		 code/pixel_put.c\
+		 code/column_render.c\
+		 code/space_render.c
+
+LIBFT_MATH = code/libft_math.c
+
+MAIN = code/main.c
+
+SRCS = $(INIT)\
+	   $(RENDER)\
+	   $(PARSE)\
+	   $(INPUT)\
+	   $(CLEAN)\
+	   $(RAY_CAST)\
+	   $(UPDATE)\
+	   $(LIBFT_MATH)\
+	   $(MAIN)
+
+OBJS = $(notdir $(SRCS:.c=.o))
+OBJS := $(addprefix bin/, $(OBJS))
+
+
+TOTAL := $(words $(SRCS))
+BAR_LENGTH = 30
+COUNTER = 0
+
+define progress_bar
+	$(eval COUNTER=$(shell echo $$(($(COUNTER)+1))))
+	@percent=$$((100 * $(COUNTER) / $(TOTAL))); \
+	filled=$$(( $(BAR_LENGTH) * $(COUNTER) / $(TOTAL) )); \
+	empty=$$(( $(BAR_LENGTH) - $$filled )); \
+	bar="$$(printf '%0.s#' $$(seq 1 $$filled))$$(printf '%0.s-' $$(seq 1 $$empty))"; \
+	printf "Compiling samus_invasion objects [%s] %3d%%\r" "$$bar" $$percent;
+endef
+
+bin/%.o: code/%.c | bin
+	@$(call progress_bar)
+	@$(CC) -c $< -o $@
+
+game: $(OBJS) $(MLX) $(LIBFT)
+	cc $(CFLAGS) $(OBJS) $(LDFLAGS) $(LIBFT) $(MLX) -o game
+
+bin:
+	@mkdir bin
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
+
+
+$(MLX):
+	make -C $(MLX_DIR)
 
 clean:
-	$(RM) -r $(OBJ_PATH)
+	@rm game
 
-fclean: clean
-	$(RM) $(BIN) $(BONUS_BIN)
+fclean:
+	@rm -rf bin
 
-re: fclean all
+re: fclean game
 
-debug: CFLAGS += $(DEBUG)
-debug: clean $(BIN)
-
-asan: CFLAGS += $(DEBUG) $(ASAN)
-asan: LDFLAGS += $(ASAN)
-asan: clean $(BIN)
-
-tsan: CFLAGS += $(DEBUG) $(TSAN)
-tsan: LDFLAGS += $(TSAN)
-tsan: clean $(BIN)
-
-fast: CFLAGS += $(FAST)
-fast: LDFLAGS += -flto
-fast: clean $(BIN)
-
-ffast: CFLAGS += $(FAST) -Ofast
-ffast: LDFLAGS += -flto
-ffast: clean $(BIN)
-
-.PHONY: all clean fclean re debug asan tsan fast ffast
+bear: fclean
+	@bear -- make
+	@mv compile_commands.json build/

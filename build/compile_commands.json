@@ -1,0 +1,230 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/init.o",
+      "code/init.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/init.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/init.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/draw_line.o",
+      "code/draw_line.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/draw_line.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/draw_line.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/pixel_put.o",
+      "code/pixel_put.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/pixel_put.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/pixel_put.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/column_render.o",
+      "code/column_render.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/column_render.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/column_render.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/space_render.o",
+      "code/space_render.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/space_render.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/space_render.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/parse.o",
+      "code/parse.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/parse.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/parse.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/input.o",
+      "code/input.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/input.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/input.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/clean.o",
+      "code/clean.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/clean.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/clean.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/ray_cast.o",
+      "code/ray_cast.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/ray_cast.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/ray_cast.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/update.o",
+      "code/update.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/update.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/update.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/libft_math.o",
+      "code/libft_math.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/libft_math.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/libft_math.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-I",
+      "includes/",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O3",
+      "-c",
+      "-o",
+      "bin/main.o",
+      "code/main.c"
+    ],
+    "directory": "/home/avieira-42/repos/games/cyber_blaster",
+    "file": "/home/avieira-42/repos/games/cyber_blaster/code/main.c",
+    "output": "/home/avieira-42/repos/games/cyber_blaster/bin/main.o"
+  }
+]
