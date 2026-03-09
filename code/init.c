@@ -12,7 +12,6 @@ void	screen_init(t_game *game)
 	time_delta_get(game);
 	game->vd = 1 / u_rsqrt(game->map.width * game->map.width
 			+ game->map.height * game->map.height);
-	printf("game->vd %i\n", game->vd);
 	game->frame.img = mlx_new_image(game->mlx_ptr, SCREEN_X, SCREEN_Y);
 	game->frame.addr = mlx_get_data_addr(
 			game->frame.img, &game->frame.bpp, &game->frame.l_len,

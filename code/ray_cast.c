@@ -102,5 +102,4 @@ void	ray_cast(t_game *game, t_ray *ray)
 			if (game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '1')
 				ray->hit = true;
 	}
-	printf("final_len: %f\n", ray->final_len);
 }

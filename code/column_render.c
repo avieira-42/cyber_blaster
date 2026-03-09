@@ -23,8 +23,8 @@ t_column	column_init(t_ray ray, t_player player, int32_t x)
 	column.start.x = x;
 	column.start.y = -column.height / 2 + player.mouse_mov.y / 2;
 	column.end.y = column.height / 2 + player.mouse_mov.y / 2;
-	if (column.start.x < 0)
-		column.start.x = 0;
+	if (column.start.y < 0)
+		column.start.y = 0;
 	if (column.end.y >= SCREEN_Y)
 		column.end.y = SCREEN_Y - 1;
 	return (column);

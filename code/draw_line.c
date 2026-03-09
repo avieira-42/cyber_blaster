@@ -2,137 +2,82 @@
 #include "render.h"
 #include "types.h"
 
-void	line_draw(t_vecf32 a, t_vecf32 b, t_game *game, int color)
+// Simple DDA line (your original)
+void line_draw(t_vecf32 a, t_vecf32 b, t_game *game, int color)
 {
-	size_t			i;
-	t_vecf32 const	line = vec_sub(a, b);
-	int		x;
-	int		y;
-	size_t const	max = vec_max_coord(a);
+    size_t      i;
+    t_vecf32    line = vec_sub(a, b);
+    int         x;
+    int         y;
+    size_t      max = vec_max_coord(a);
 
-	if (max != 0)
-	{
-		x = line.x / max;
-		y = line.y / max;
-		i = 0;
-		while (i < max)
-		{
-			a.x += x;
-			a.y += y;
-			img_pixel_put(game, a.x , a.y, color);
-			i++;
-		}
-	}
+    if (max != 0)
+    {
+        x = line.x / max;
+        y = line.y / max;
+        i = 0;
+        while (i < max)
+        {
+            a.x += x;
+            a.y += y;
+            img_pixel_put(game, a.x, a.y, color);
+            i++;
+        }
+    }
 }
 
-void	line_draw_bresenham_v(t_vecf32 a, t_vecf32 b, t_game *game, int color)
+// Fully correct Bresenham (unified version)
+void line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_game *game, int color)
 {
-	t_vecf32	line;
-	t_vecf32	tmp;
-	int		max;
-	int		x;
-	int		p;
-	int		i;
-	int		dir;
+    int x0 = (int)a.x;
+    int y0 = (int)a.y;
+    int x1 = (int)b.x;
+    int y1 = (int)b.y;
 
-	i = -1;
-	if (a.y > b.y)
-	{
-		tmp = a;
-		a = b;
-		b = tmp;
-	}
-	line = vec_sub(a, b);
-	max = vec_max_coord(line);
-	if (line.x < 0)
-		dir = -1;
-	else
-		dir = 1;
-	line.x *= dir;
-	if (line.y != 0)
-	{
-		x = a.x;
-		p = 2 * line.x - line.y;
-		while (++i < max)
-		{
-			a.y++;
-			img_pixel_put(game, x, a.y, color);
-			if (p >= 0)
-			{
-				x += dir;
-				p = p - 2 * line.y;
-			}
-			p = p + 2 * line.x;
-		}
-	}
+    int dx = ft_abs(x1 - x0);
+    int dy = ft_abs(y1 - y0);
+
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+
+    int err = dx - dy;
+
+    while (1)
+    {
+        img_pixel_put(game, x0, y0, color);
+
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        int e2 = 2 * err;
+
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
 
-void	line_draw_bresenham_h(t_vecf32 a, t_vecf32 b, t_game *game, int color)
+// Rectangle fill (your original)
+void quad_draw(t_vecf32 a, t_game *game, int color, t_vecf32 len)
 {
-	t_vecf32	line;
-	t_vecf32	tmp;
-	int		max;
-	int		y;
-	int		p;
-	int		i;
-	int		dir;
+    int x;
+    int y = 0;
 
-	i = -1;
-	if (a.x > b.x)
-	{
-		tmp = a;
-		a = b;
-		b = tmp;
-	}
-	line = vec_sub(a, b);
-	max = vec_max_coord(line);
-	if (line.y < 0)
-		dir = -1;
-	else
-		dir = 1;
-	line.y *= dir;
-	if (line.x != 0)
-	{
-		y = a.y;
-		p = 2 * line.y - line.x;
-		while (++i < max)
-		{
-			a.x++;
-			img_pixel_put(game, a.x, y, color);
-			if (p >= 0)
-			{
-				y += dir;
-				p = p - 2 * line.x;
-			}
-			p = p + 2 * line.y;
-		}
-	}
+    while (y < len.y)
+    {
+        x = 0;
+        while (x < len.x)
+        {
+            img_pixel_put(game, a.x + x, a.y + y, color);
+            x++;
+        }
+        y++;
+    }
 }
-
-void	line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_game *game, int color)
-{
-	t_vecf32 const	line = vec_sub(a, b);
-	if (ft_abs(line.x) >= ft_abs(line.y))
-		line_draw_bresenham_h(a, b, game, color);
-	else
-		line_draw_bresenham_v(a, b, game, color);
-}
-
-void	quad_draw(t_vecf32 a, t_game *game, int color, t_vecf32 len)
-{
-	int			x;
-	int			y;
-
-	y = 0;
-	while (y < len.y)
-	{
-		x = 0;
-		while (x < len.x)
-		{
-			img_pixel_put(game, a.x + x, a.y + y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
