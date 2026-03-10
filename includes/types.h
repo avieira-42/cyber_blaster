@@ -63,6 +63,7 @@ typedef struct s_player
 	int32_t		dir_mod;
 	float		speed;
 	float		speed_mod;
+	bool		shoot;
 }	t_player;
 
 typedef struct	s_ray

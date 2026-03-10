@@ -56,25 +56,29 @@ int     key_released(int keysym, void *arg)
 	return (1);
 }
 
-int	mouse_pressed(int keysym, void *arg)
+int	mouse_pressed(int keysym, int x, int y, void *arg)
 {
 	t_game  *game;
 
+	(void)x;
+	(void)y;
 	game = (t_game *)arg;
-	(void)game;
-	(void)keysym;
-	(void)arg;
+	if (keysym == 1)
+		game->player.shoot = true;
 	return (1);
 }
 
-int	mouse_released(int keysym, void *arg)
+int	mouse_released(int keysym, int x, int y, void *arg)
 {
 	t_game  *game;
 
 	game = (t_game *)arg;
+	(void)x;
+	(void)y;
 	(void)game;
 	(void)keysym;
-	(void)arg;
+	/*if (keysym == 1)
+		game->player.shoot = true;*/
 	return (1);
 }
 

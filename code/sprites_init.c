@@ -74,7 +74,6 @@ t_anim	*sprite_sheet_init(void *mlx, char *base_path, int32_t count, char *file_
 	anim->base_path = ft_strdup(base_path);
 	anim->count = count;
 	anim->file_type = ft_strdup(file_type);
-	anim->sprites_per_frame = 13;
 	anim->i = 0;
 	stt_load_animation(mlx, anim);
 	return (anim);
