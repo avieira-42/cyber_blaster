@@ -30,14 +30,20 @@ typedef struct	s_img
 	int32_t	bpp;
 	int32_t	l_len;
 	int32_t	endian;
-	float	width;
-	float	height;;
+	int32_t	width;
+	int32_t	height;;
 }	t_img;
 
-typedef struct	s_sprite
+typedef struct	s_anim
 {
-	t_img	image;
-}	t_sprite;
+	int32_t		i;
+	int32_t		sprites_per_frame;
+	t_img		*sheet;
+	int32_t		counter;
+	int32_t		count;
+	char		*base_path;
+	char		*file_type;
+}	t_anim;
  
 typedef struct	s_cam
 {
@@ -111,12 +117,12 @@ typedef struct s_game
 	int32_t		start;
 	int32_t		here;
 	// hud
-	t_sprite	reload[16];
-	t_sprite	shoot[5];
-	t_sprite	walk[8];
-	t_sprite	ammo[9];
-	t_sprite	health[10];
-	t_sprite	pill[2];
+	t_anim	*reload;
+	t_anim	*shoot;
+	t_anim	*walk;
+	t_anim	*ammo;
+	t_anim	*health;
+	t_anim	*pill;
 	// tiles
 	// background
 	// enemies

@@ -23,8 +23,11 @@ void	update(t_game *game)
 
 void	render(t_game *game)
 {
-	window_clear(game, 0x000000);
+	window_clear(&game->frame, 0x000000);
+	//debug
 	space_render(game);
+	//debug
+	sprites_render(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
 			game->frame.img, 0, 0);
 }
@@ -45,6 +48,7 @@ void	game_init(t_game *game)
 	time_delta_get(game);
 	player_init(game);
 	cam_init(&game->cam, game->player);
+	sprites_init(game);
 
 	// DEBUG
 	game->here = 0;

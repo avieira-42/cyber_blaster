@@ -3,7 +3,7 @@
 #include "types.h"
 
 // Simple DDA line (your original)
-void line_draw(t_vecf32 a, t_vecf32 b, t_game *game, int color)
+void line_draw(t_vecf32 a, t_vecf32 b, t_img *frame, int color)
 {
     size_t      i;
     t_vecf32    line = vec_sub(a, b);
@@ -20,14 +20,14 @@ void line_draw(t_vecf32 a, t_vecf32 b, t_game *game, int color)
         {
             a.x += x;
             a.y += y;
-            img_pixel_put(game, a.x, a.y, color);
+            frame_pixel_put(frame, a.x, a.y, color);
             i++;
         }
     }
 }
 
 // Fully correct Bresenham (unified version)
-void line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_game *game, int color)
+void line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_img *frame, int color)
 {
     int x0 = (int)a.x;
     int y0 = (int)a.y;
@@ -44,7 +44,7 @@ void line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_game *game, int color)
 
     while (1)
     {
-        img_pixel_put(game, x0, y0, color);
+        frame_pixel_put(frame, x0, y0, color);
 
         if (x0 == x1 && y0 == y1)
             break;
@@ -65,7 +65,7 @@ void line_draw_bresenham(t_vecf32 a, t_vecf32 b, t_game *game, int color)
 }
 
 // Rectangle fill (your original)
-void quad_draw(t_vecf32 a, t_game *game, int color, t_vecf32 len)
+void quad_draw(t_vecf32 a, t_img *frame, int color, t_vecf32 len)
 {
     int x;
     int y = 0;
@@ -75,7 +75,7 @@ void quad_draw(t_vecf32 a, t_game *game, int color, t_vecf32 len)
         x = 0;
         while (x < len.x)
         {
-            img_pixel_put(game, a.x + x, a.y + y, color);
+            frame_pixel_put(frame, a.x + x, a.y + y, color);
             x++;
         }
         y++;

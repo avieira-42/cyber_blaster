@@ -30,7 +30,7 @@ t_column	column_init(t_ray ray, t_player player, int32_t x)
 	return (column);
 }
 
-void	column_render(t_game *game, t_ray ray, t_player player, int32_t x)
+void	column_render(t_img *frame, t_ray ray, t_player player, int32_t x)
 {
 	t_column const	column = column_init(ray, player, x);
 
@@ -52,5 +52,5 @@ void	column_render(t_game *game, t_ray ray, t_player player, int32_t x)
 				ray.color = GREEN;
 		}
 	}
-	line_draw_bresenham(column.start, column.end, game, ray.color);
+	line_draw_bresenham(column.start, column.end, frame, ray.color);
 }

@@ -3,6 +3,7 @@
 #include "libft_math.h"
 #include "types.h"
 #include "update.h"
+#include "init.h"
 
 void	screen_init(t_game *game)
 {
@@ -38,4 +39,19 @@ void	cam_init(t_cam *cam, t_player player)
 	cam->dir = (t_vecf32){-0.71, 0.71};
 	cam->pos = vec_sum(player.pos,
 				vec_scalar_mult(player.dir, cam->dist));
+}
+
+void	sprites_init(t_game *game)
+{
+	// HUD INIT
+	// hands
+	game->shoot = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hands/hands_shooting", 5, ".xpm");
+	game->shoot->sprites_per_frame = 13;
+	game->walk = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hands/hands_walking", 8, ".xpm");
+	game->walk->sprites_per_frame = 13;
+	game->reload = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hands/hands_reloading", 16, ".xpm");
+	game->reload->sprites_per_frame = 13;
 }

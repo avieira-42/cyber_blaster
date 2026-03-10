@@ -2,7 +2,7 @@
 #include "render.h"
 #include "ray_cast.h"
 
-void    grid_draw(t_game *game, t_vecf32 map_max,
+void    grid_draw(t_img *frame, t_vecf32 map_max,
 		t_vecf32 map_tile, t_veci32 map_size)
 {
 	int	i;
@@ -14,7 +14,7 @@ void    grid_draw(t_game *game, t_vecf32 map_max,
 	{
 		line_draw_bresenham((t_vecf32){0, pos},
 				(t_vecf32){map_max.x, pos},
-				game, 0x777777);
+				frame, 0x777777);
 		pos += map_tile.y;
 		i++;
 	}
@@ -23,7 +23,7 @@ void    grid_draw(t_game *game, t_vecf32 map_max,
 	{
 		line_draw_bresenham((t_vecf32){pos, 0},
 				(t_vecf32){pos, map_max.y},
-				game, 0x777777);
+				frame, 0x777777);
 		pos += map_tile.x;
 		i++;
 	}
@@ -43,7 +43,7 @@ void	objects_draw(t_game *game, t_veci32 map_size, t_vecf32 map_tile)
 			if (game->map.grid[y][x] == '1')
 				quad_draw((t_vecf32){x * map_tile.x,
 						y * map_tile.y},
-						game, 0x555555, map_tile);
+						&game->frame, 0x555555, map_tile);
 			x++;
 		}
 		y++;
@@ -68,10 +68,10 @@ void	ray_draw(t_game *game, t_player player, t_ray ray, int32_t x)
 		ray.hit_pos.y = (ray.p_pos.y + ray.dir.y * game->cam.dist) * game->map.tile_y;
 		ray.color = GREEN;
 	}
-	line_draw_bresenham(p_pos, ray.hit_pos, game, ray.color);
+	line_draw_bresenham(p_pos, ray.hit_pos, &game->frame, ray.color);
 	if (!ray.hit)
 		return ;
-	column_render(game, ray, player, x);
+	column_render(&game->frame, ray, player, x);
 }
 
 void	fov_draw(t_game *game)
@@ -97,23 +97,6 @@ void	player_draw(t_game *game, t_vecf32 map_tile)
 
 	p_pos.x = (game->player.pos.x - 0.5f) * map_tile.x;
 	p_pos.y = (game->player.pos.y - 0.5f) * map_tile.y;
-	quad_draw(p_pos, game, 0xFF00FF, map_tile);
-	img_pixel_put(game, p_pos.x, p_pos.y, 0xFFFFFF);
-}
-
-void	space_render(t_game *game)
-{
-	t_vecf32 const	map_max = (t_vecf32){game->map.max_x, game->map.max_y};
-	t_vecf32 const	map_tile = (t_vecf32){game->map.tile_x, game->map.tile_y};
-	t_veci32 const	map_size = (t_veci32){game->map.width, game->map.height};
-
-	fov_draw(game);
-	objects_draw(game, map_size, map_tile);
-	grid_draw(game, map_max, map_tile, map_size);
-
-	// to remove after collisions
-	if (game->player.pos.x <= game->map.max_x
-			&& game->player.pos.y <= game->map.max_y)
-		player_draw(game, map_tile);
-	// to remove after collisions
+	quad_draw(p_pos, &game->frame, 0xFF00FF, map_tile);
+	frame_pixel_put(&game->frame, p_pos.x, p_pos.y, 0xFFFFFF);
 }

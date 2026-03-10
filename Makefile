@@ -16,7 +16,8 @@ MLX = $(MLX_DIR)/libmlx.a
 LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-INIT = code/init.c
+INIT = code/init.c\
+	   code/sprites_init.c
 
 PARSE = code/parse.c
 
@@ -31,7 +32,9 @@ UPDATE = code/update.c
 RENDER = code/draw_line.c\
 		 code/pixel_put.c\
 		 code/column_render.c\
-		 code/space_render.c
+		 code/space_render.c\
+		 code/render.c\
+		 code/animate.c
 
 LIBFT_MATH = code/libft_math.c
 

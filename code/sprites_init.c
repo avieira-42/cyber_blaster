@@ -2,39 +2,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../libs/minilibx-linux/mlx.h"
+#include "../libs/libft/include/libft.h"
 
-void    load_sprite(void *mlx_ptr, t_img *sprite, const char *filepath)
+static
+void	stt_path_cat(char *path, t_anim *anim, int32_t sprite_number)
 {
-    int w;
-    int h;
+	size_t		i;
+	size_t		j;
+	const char	*number = ft_itoa(sprite_number);
 
-    sprite->img = mlx_xpm_file_to_image(mlx_ptr, (char *)filepath, &w, &h);
+	i = 0;
+	j = 0;
+	while (anim->base_path[i])
+	{
+		path[j] = anim->base_path[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while(number[i])
+	{
+		path[j] = number[i] + 1;
+		i++;
+		j++;
+	}
+	i = 0;
+	while (anim->file_type[i])
+	{
+		path[j] = anim->file_type[i];
+		i++;
+		j++;
+	}
+	path[j] = '\0';
+}
+
+static
+void    stt_load_sprite(void *mlx_ptr, t_img *sprite, char *filepath)
+{
+    sprite->img = mlx_xpm_file_to_image(mlx_ptr, filepath,
+			&sprite->width, &sprite->height);
     if (!sprite->img)
     {
         sprite->addr = NULL;
         return ;
     }
-    sprite->width = (float)w;
-    sprite->height = (float)h;
     sprite->addr = mlx_get_data_addr(sprite->img,
             &sprite->bpp, &sprite->l_len, &sprite->endian);
 }
 
-void    load_sprite_group(void *mlx_ptr,
-            t_sprite *dest_array,
-            const char *base_path,
-            int count,
-            int start_index)
+static
+void    stt_load_animation(void *mlx_ptr, t_anim *animation)
 {
-    int     i;
-    char    fullpath[256];
+    int32_t     i;
+    char		path[200];
 
+	animation->sheet = malloc(sizeof(t_img) * animation->count);
     i = 0;
-    while (i < count)
+    while (i < animation->count)
     {
-        snprintf(fullpath, sizeof(fullpath),
-            "%s%d.xpm", base_path, start_index + i);
-        load_sprite(mlx_ptr, &dest_array[i].image, fullpath);
+		stt_path_cat(path, animation, i);
+		stt_load_sprite(mlx_ptr, &(animation->sheet[i]), path);
         i++;
     }
+}
+
+t_anim	*sprite_sheet_init(void *mlx, char *base_path, int32_t count, char *file_type)
+{
+	t_anim	*anim;
+
+	anim = malloc(sizeof(t_anim));
+	anim->base_path = ft_strdup(base_path);
+	anim->count = count;
+	anim->file_type = ft_strdup(file_type);
+	anim->sprites_per_frame = 13;
+	anim->i = 0;
+	stt_load_animation(mlx, anim);
+	return (anim);
 }

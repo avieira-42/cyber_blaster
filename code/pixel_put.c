@@ -1,17 +1,15 @@
 #include <unistd.h>
 #include "types.h"
 
-void	img_pixel_put(t_game *game, int x, int y, int color)
-{
-	char	*dst;
-
+void	frame_pixel_put(t_img *frame, int32_t x, int32_t y, int32_t color)
+{ char	*dst;
 	if (x < 0 || x >= SCREEN_X || y < 0 || y >= SCREEN_Y)
 		return ;
-	dst = game->frame.addr + (y * game->frame.l_len + x * (game->frame.bpp / 8));
+	dst = frame->addr + (y * frame->l_len + x * frame->bpp / 8);
 	*(unsigned int *)dst = color;
 }
 
-void	window_clear(t_game *game, int color)
+void	window_clear(t_img *frame, int32_t color)
 {
 	size_t	i;
 	size_t	j;
@@ -22,9 +20,41 @@ void	window_clear(t_game *game, int color)
 		j = 0;
 		while (j < SCREEN_X)
 		{
-			img_pixel_put(game, j, i, color);
+			frame_pixel_put(frame, j, i, color);
 			j++;
 		}
 		i++;
+	}
+}
+
+static
+int32_t	stt_get_color(t_img *image, int32_t x, int32_t y)
+{
+	int32_t	*color;
+
+	if (x < 0 || x >= image->width || y < 0 || y > image->height)
+		return (0);
+	color = (int32_t *) (image->addr + x * (image->bpp / 8) + y * image->l_len);
+	return (*color);
+}
+
+void	draw_texture(t_img *frame, t_img *image, t_vecf32 pos, float scale)
+{
+	int32_t	x;
+	int32_t	y;
+	int32_t	color;	
+
+	x = 0;
+	while (x < image->width * scale)
+	{
+		y = 0;
+		while (y < image->height * scale)
+		{
+			color = stt_get_color(image, x / scale, y / scale);
+			if (color != 2228223)
+				frame_pixel_put(frame, pos.x + x, pos.y + y, color);
+			y++;
+		}
+		x++;
 	}
 }
