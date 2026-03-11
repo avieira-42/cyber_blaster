@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avieira- <avieira-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/11 23:38:52 by avieira-          #+#    #+#             */
+/*   Updated: 2026/03/11 23:39:32 by avieira-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include "types.h"
@@ -26,11 +38,20 @@ void	space_render(t_game *game)
 static
 void	stt_hands_render(t_game *game)
 {
+	// reload
 	if (game->player.reload == true && game->player.shoot == false)
 	{
+		if (game->gun.first_i == -1)
+			game->gun.first_i = game->reload->i;
 		sprite_sheet_animate(&game->frame, game->reload,
 				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+		if (game->reload->i - game->gun.first_i == 2)
+		{
+			game->player.reload = false;
+			game->gun.first_i = -1;
+		}
 	}
+	// shoot
 	else
 	{
 		if (game->player.shoot == true)

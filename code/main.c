@@ -79,6 +79,7 @@ void	game_init(t_game *game)
 	cam_init(&game->cam, game->player);
 	sprites_init(game);
 	audio_init(game);
+	gun_init(game);
 
 	// DEBUG
 	game->here = 0;

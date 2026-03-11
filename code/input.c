@@ -33,7 +33,10 @@ int     key_pressed(int keysym, void *arg)
 			game->pause = false;
 	}
 	if (keysym == XK_r)
-		game->player.reload = true;
+	{
+		if (game->player.reload == false)
+			game->player.reload = true;
+	}
 	if (keysym == XK_Escape)
 		free_displays();
 	return (1);
@@ -60,8 +63,6 @@ int     key_released(int keysym, void *arg)
 		game->cam.dist_mod += 1;
 	if (keysym == XK_i)
 		game->cam.dist_mod += -1;
-	if (keysym == XK_r)
-		game->player.reload = false;
 	if (keysym == XK_Shift_L)
 		game->player.speed_mod += -1;
 	return (1);

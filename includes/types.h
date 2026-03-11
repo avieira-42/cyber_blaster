@@ -108,6 +108,13 @@ typedef	struct	s_map
 	char		*grid[500];
 }	t_map;
 
+typedef struct	s_gun
+{
+	int32_t	ammo;
+	int32_t	max_ammo;
+	int32_t	first_i;
+}	t_gun;
+
 typedef struct s_game
 {
 	//	definitive
@@ -118,6 +125,7 @@ typedef struct s_game
 	void		*win_ptr;
 	t_img		frame;
 	bool		pause;
+	t_gun		gun;
 
 	//	MAYBE TMP
 	int32_t		vd;

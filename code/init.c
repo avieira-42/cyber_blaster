@@ -60,7 +60,7 @@ void	sprites_init(t_game *game)
 	game->walk->dt = &game->dt;
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 16, ".xpm");
-	game->reload->sprites_per_frame = 4;
+	game->reload->sprites_per_frame = 6;
 	game->reload->dt = &game->dt;
 	// cards
 	game->ammo = sprite_sheet_init(game->mlx_ptr,
@@ -83,4 +83,11 @@ void	audio_init(t_game *game)
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	game->gun_shot = Mix_LoadWAV("assets/audio/gun_shot.wav");
+}
+
+void	gun_init(t_game *game)
+{
+	game->gun.ammo = 8;
+	game->gun.max_ammo = 8;
+	game->gun.first_i = -1;
 }
