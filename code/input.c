@@ -25,6 +25,13 @@ int     key_pressed(int keysym, void *arg)
 		game->cam.dist_mod += 1;
 	if (keysym == XK_Shift_L)
 		game->player.speed_mod += 1;
+	if (keysym == XK_p)
+	{
+		if (game->pause == false)
+			game->pause = true;
+		else
+			game->pause = false;
+	}
 	if (keysym == XK_r)
 		game->player.reload = true;
 	if (keysym == XK_Escape)
@@ -67,8 +74,11 @@ int	mouse_pressed(int keysym, int x, int y, void *arg)
 	(void)x;
 	(void)y;
 	game = (t_game *)arg;
-	if (keysym == 1)
+	if (keysym == 1 && game->player.shoot == false)
+	{
 		game->player.shoot = true;
+		game->player.shoot_sound = true;
+	}
 	return (1);
 }
 

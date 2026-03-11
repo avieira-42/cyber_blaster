@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "../libs/minilibx-linux/mlx.h"
 #include "types.h"
 #include "clean.h"
@@ -15,10 +17,10 @@
 
 void	update(t_game *game)
 {
+	mlx_mouse_move(game->mlx_ptr, game->win_ptr, SCREEN_X / 2, SCREEN_Y / 2);
 	time_delta_get(game);
 	player_move(game, &game->player, &game->cam, game->dt);
 	camera_move(&game->player, &game->cam);
-	mlx_mouse_move(game->mlx_ptr, game->win_ptr, SCREEN_X / 2, SCREEN_Y / 2);
 }
 
 void	background_render(t_game *game)
@@ -61,8 +63,11 @@ int	game_loop(void *arg)
 	t_game *game;
 
 	game = (t_game *)arg;
-	update(game);
-	render(game);
+	if (game->pause == false)
+	{
+		update(game);
+		render(game);
+	}
 	return (1);
 }
 
@@ -73,10 +78,12 @@ void	game_init(t_game *game)
 	player_init(game);
 	cam_init(&game->cam, game->player);
 	sprites_init(game);
+	audio_init(game);
 
 	// DEBUG
 	game->here = 0;
 	game->start = 0;
+	game->pause = false;
 }
 
 int	main(int argc, char **argv)

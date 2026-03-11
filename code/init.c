@@ -1,4 +1,6 @@
 #include <unistd.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "../libs/minilibx-linux/mlx.h"
 #include "libft_math.h"
 #include "types.h"
@@ -29,8 +31,9 @@ void	player_init(t_game *game)
 	game->player.speed = 3;
 	game->player.speed_mod = 1;
 	game->player.mouse_mov = (t_vecf32){0, 0};
-	game->player.shoot = false;
 	game->player.reload = false;
+	game->player.shoot = false;
+	game->player.shoot_sound = false;
 }
 
 void	cam_init(t_cam *cam, t_player player)
@@ -73,4 +76,11 @@ void	sprites_init(t_game *game)
 	game->city = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/city", 4, ".xpm");
 	game->city->dt = &game->dt;
+}
+
+void	audio_init(t_game *game)
+{
+	SDL_Init(SDL_INIT_AUDIO);
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	game->gun_shot = Mix_LoadWAV("assets/audio/gun_shot.wav");
 }

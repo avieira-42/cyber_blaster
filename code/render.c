@@ -1,3 +1,5 @@
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "types.h"
 #include "render.h"
 
@@ -33,6 +35,11 @@ void	stt_hands_render(t_game *game)
 	{
 		if (game->player.shoot == true)
 		{
+			if (game->player.shoot_sound == true)
+			{
+				Mix_PlayChannel(-1, game->gun_shot, 0);
+				game->player.shoot_sound = false;
+			}
 			sprite_sheet_animate(&game->frame, game->shoot,
 					(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 			if (game->shoot->end == true)

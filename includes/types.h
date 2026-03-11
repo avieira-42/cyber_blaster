@@ -1,6 +1,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "libft_math.h"
 #include <stdio.h>
 #include <stdbool.h>
@@ -68,6 +70,7 @@ typedef struct s_player
 	float		speed_mod;
 	bool		reload;
 	bool		shoot;
+	bool		shoot_sound;
 }	t_player;
 
 typedef struct	s_ray
@@ -114,13 +117,16 @@ typedef struct s_game
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		frame;
+	bool		pause;
 
-	//	maybe tmp
+	//	MAYBE TMP
 	int32_t		vd;
 	long long	t0;
 	float		dt;
 	int32_t		start;
 	int32_t		here;
+	// sounds
+	Mix_Chunk	*gun_shot;
 	// hud
 	t_anim	*reload;
 	t_anim	*shoot;

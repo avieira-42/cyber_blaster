@@ -1,6 +1,7 @@
 LDFLAGS = -L $(LIBFT_DIR) -lft \
           -L $(MLX_DIR) -lmlx \
-          -lX11 -lbsd -lXext -lX11 -lm
+          -lX11 -lbsd -lXext -lm
+SDLFLAGS = -lSDL2 -lSDL2_mixer -lSDL2main
 
 OPTIMIZE = -O3
 
@@ -17,7 +18,7 @@ LIBFT_DIR = libs/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 INIT = code/init.c\
-	   code/sprites_init.c
+       code/sprites_init.c
 
 PARSE = code/parse.c
 
@@ -30,56 +31,56 @@ RAY_CAST = code/ray_cast.c
 UPDATE = code/update.c
 
 RENDER = code/draw_line.c\
-		 code/pixel_put.c\
-		 code/column_render.c\
-		 code/space_render.c\
-		 code/render.c\
-		 code/animate.c
+         code/pixel_put.c\
+         code/column_render.c\
+         code/space_render.c\
+         code/render.c\
+         code/animate.c
 
 LIBFT_MATH = code/libft_math.c
 
 MAIN = code/main.c
 
 SRCS = $(INIT)\
-	   $(RENDER)\
-	   $(PARSE)\
-	   $(INPUT)\
-	   $(CLEAN)\
-	   $(RAY_CAST)\
-	   $(UPDATE)\
-	   $(LIBFT_MATH)\
-	   $(MAIN)
+       $(RENDER)\
+       $(PARSE)\
+       $(INPUT)\
+       $(CLEAN)\
+       $(RAY_CAST)\
+       $(UPDATE)\
+       $(LIBFT_MATH)\
+       $(MAIN)
 
 OBJS = $(notdir $(SRCS:.c=.o))
 OBJS := $(addprefix bin/, $(OBJS))
 
+PROGRAM = $(OBJS)
 
 TOTAL := $(words $(SRCS))
 BAR_LENGTH = 30
 COUNTER = 0
 
 define progress_bar
-	$(eval COUNTER=$(shell echo $$(($(COUNTER)+1))))
-	@percent=$$((100 * $(COUNTER) / $(TOTAL))); \
-	filled=$$(( $(BAR_LENGTH) * $(COUNTER) / $(TOTAL) )); \
-	empty=$$(( $(BAR_LENGTH) - $$filled )); \
-	bar="$$(printf '%0.s#' $$(seq 1 $$filled))$$(printf '%0.s-' $$(seq 1 $$empty))"; \
-	printf "Compiling samus_invasion objects [%s] %3d%%\r" "$$bar" $$percent;
+    $(eval COUNTER=$(shell echo $$(($(COUNTER)+1))))
+    @percent=$$((100 * $(COUNTER) / $(TOTAL))); \
+    filled=$$(( $(BAR_LENGTH) * $(COUNTER) / $(TOTAL) )); \
+    empty=$$(( $(BAR_LENGTH) - $$filled )); \
+    bar="$$(printf '%0.s#' $$(seq 1 $$filled))$$(printf '%0.s-' $$(seq 1 $$empty))"; \
+    printf "Compiling cyber_blaster objects [%s] %3d%%\r" "$$bar" $$percent;
 endef
 
 bin/%.o: code/%.c | bin
 	@$(call progress_bar)
 	@$(CC) -c $< -o $@
 
-game: $(OBJS) $(MLX) $(LIBFT)
-	cc $(CFLAGS) $(OBJS) $(LDFLAGS) $(LIBFT) $(MLX) -o game
+game: $(PROGRAM) $(MLX) $(LIBFT)
+	cc $(CFLAGS) $(PROGRAM) $(SDLFLAGS) $(LDFLAGS) -o game
 
 bin:
 	@mkdir bin
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
-
 
 $(MLX):
 	make -C $(MLX_DIR)
