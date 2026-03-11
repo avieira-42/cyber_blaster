@@ -68,7 +68,8 @@ void	ray_draw(t_game *game, t_player player, t_ray ray, int32_t x)
 		ray.hit_pos.y = (ray.p_pos.y + ray.dir.y * game->cam.dist) * game->map.tile_y;
 		ray.color = GREEN;
 	}
-	line_draw_bresenham(p_pos, ray.hit_pos, &game->frame, ray.color);
+	//line_draw_bresenham(p_pos, ray.hit_pos, &game->frame, ray.color);
+	(void)p_pos;
 	if (!ray.hit)
 		return ;
 	column_render(&game->frame, ray, player, x);

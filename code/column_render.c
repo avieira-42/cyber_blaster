@@ -53,4 +53,5 @@ void	column_render(t_img *frame, t_ray ray, t_player player, int32_t x)
 		}
 	}
 	line_draw_bresenham(column.start, column.end, frame, ray.color);
+	line_draw_bresenham((t_vecf32){column.end.x, SCREEN_Y}, column.end, frame, 0x444444);
 }

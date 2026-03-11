@@ -39,11 +39,13 @@ typedef struct	s_anim
 	int32_t		i;
 	int32_t		sprites_per_frame;
 	t_img		*sheet;
-	int32_t		counter;
+	float		counter;
 	int32_t		count;
 	char		*base_path;
 	char		*file_type;
 	bool		end;
+	float		*dt;
+
 }	t_anim;
  
 typedef struct	s_cam
@@ -126,6 +128,7 @@ typedef struct s_game
 	t_anim	*ammo;
 	t_anim	*health;
 	t_anim	*pill;
+	t_anim	*city;
 	// tiles
 	// background
 	// enemies

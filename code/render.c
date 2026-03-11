@@ -7,14 +7,17 @@ void	space_render(t_game *game)
 	t_vecf32 const	map_tile = (t_vecf32){game->map.tile_x, game->map.tile_y};
 	t_veci32 const	map_size = (t_veci32){game->map.width, game->map.height};
 
+	(void)map_max;
+	(void)map_tile;
+	(void)map_size;
 	fov_draw(game);
-	objects_draw(game, map_size, map_tile);
-	grid_draw(&game->frame, map_max, map_tile, map_size);
+	//objects_draw(game, map_size, map_tile);
+	//grid_draw(&game->frame, map_max, map_tile, map_size);
 
 	// to remove after collisions
-	if (game->player.pos.x <= game->map.max_x
+	/*if (game->player.pos.x <= game->map.max_x
 			&& game->player.pos.y <= game->map.max_y)
-		player_draw(game, map_tile);
+		player_draw(game, map_tile);*/
 	// to remove after collisions
 }
 

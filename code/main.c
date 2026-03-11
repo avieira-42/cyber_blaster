@@ -21,9 +21,33 @@ void	update(t_game *game)
 	mlx_mouse_move(game->mlx_ptr, game->win_ptr, SCREEN_X / 2, SCREEN_Y / 2);
 }
 
+void	background_render(t_game *game)
+{
+	int32_t	i;
+
+	i = 0;
+	if (game->player.dir.x > 0)
+	{
+		if (game->player.dir.y > 0)
+			i = 0;
+		else
+			i = 1;
+	}
+	else
+	{
+		if (game->player.dir.y > 0)
+			i = 2;
+		else
+			i = 3;
+	}
+	draw_texture(&game->frame, &game->city->sheet[i],
+			(t_vecf32){0,0}, 1);
+}
+
 void	render(t_game *game)
 {
 	window_clear(&game->frame, 0x000000);
+	//background_render(game);
 	//debug
 	space_render(game);
 	//debug

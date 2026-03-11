@@ -49,18 +49,28 @@ void	sprites_init(t_game *game)
 	// hands
 	game->shoot = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_shooting", 5, ".xpm");
-	game->shoot->sprites_per_frame = 10;
+	game->shoot->sprites_per_frame = 2;
+	game->shoot->dt = &game->dt;
 	game->walk = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_walking", 8, ".xpm");
-	game->walk->sprites_per_frame = 16;
+	game->walk->sprites_per_frame = 3;
+	game->walk->dt = &game->dt;
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 16, ".xpm");
-	game->reload->sprites_per_frame = 18;
+	game->reload->sprites_per_frame = 4;
+	game->reload->dt = &game->dt;
 	// cards
 	game->ammo = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_ammo/ammo", 9, ".xpm");
+	game->ammo->dt = &game->dt;
 	game->health = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_health/health", 10, ".xpm");
+	game->health->dt = &game->dt;
 	game->pill = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_pill/pill", 2, ".xpm");
+	game->pill->dt = &game->dt;
+	// BACKGROUND
+	game->city = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/tiles/city", 4, ".xpm");
+	game->city->dt = &game->dt;
 }
