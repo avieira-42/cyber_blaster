@@ -30,6 +30,7 @@ void	player_init(t_game *game)
 	game->player.speed_mod = 1;
 	game->player.mouse_mov = (t_vecf32){0, 0};
 	game->player.shoot = false;
+	game->player.reload = false;
 }
 
 void	cam_init(t_cam *cam, t_player player)
@@ -48,11 +49,11 @@ void	sprites_init(t_game *game)
 	// hands
 	game->shoot = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_shooting", 5, ".xpm");
-	game->shoot->sprites_per_frame = 11;
+	game->shoot->sprites_per_frame = 10;
 	game->walk = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_walking", 8, ".xpm");
-	game->walk->sprites_per_frame = 13;
+	game->walk->sprites_per_frame = 16;
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 16, ".xpm");
-	game->reload->sprites_per_frame = 13;
+	game->reload->sprites_per_frame = 18;
 }

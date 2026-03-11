@@ -9,7 +9,7 @@ void	stt_path_cat(char *path, t_anim *anim, int32_t sprite_number)
 {
 	size_t		i;
 	size_t		j;
-	const char	*number = ft_itoa(sprite_number);
+	const char	*number = ft_itoa(sprite_number + 1);
 
 	i = 0;
 	j = 0;
@@ -22,7 +22,7 @@ void	stt_path_cat(char *path, t_anim *anim, int32_t sprite_number)
 	i = 0;
 	while(number[i])
 	{
-		path[j] = number[i] + 1;
+		path[j] = number[i];
 		i++;
 		j++;
 	}
@@ -61,6 +61,7 @@ void    stt_load_animation(void *mlx_ptr, t_anim *animation)
     while (i < animation->count)
     {
 		stt_path_cat(path, animation, i);
+		printf("path: %s\n", path);
 		stt_load_sprite(mlx_ptr, &(animation->sheet[i]), path);
         i++;
     }
@@ -75,6 +76,7 @@ t_anim	*sprite_sheet_init(void *mlx, char *base_path, int32_t count, char *file_
 	anim->count = count;
 	anim->file_type = ft_strdup(file_type);
 	anim->i = 0;
+	anim->end = false;
 	stt_load_animation(mlx, anim);
 	return (anim);
 }

@@ -43,6 +43,7 @@ typedef struct	s_anim
 	int32_t		count;
 	char		*base_path;
 	char		*file_type;
+	bool		end;
 }	t_anim;
  
 typedef struct	s_cam
@@ -63,6 +64,7 @@ typedef struct s_player
 	int32_t		dir_mod;
 	float		speed;
 	float		speed_mod;
+	bool		reload;
 	bool		shoot;
 }	t_player;
 
