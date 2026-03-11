@@ -56,4 +56,11 @@ void	sprites_init(t_game *game)
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 16, ".xpm");
 	game->reload->sprites_per_frame = 18;
+	// cards
+	game->ammo = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hud_ammo/ammo", 9, ".xpm");
+	game->health = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hud_health/health", 10, ".xpm");
+	game->pill = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/hud/hud_pill/pill", 2, ".xpm");
 }

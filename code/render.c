@@ -18,19 +18,20 @@ void	space_render(t_game *game)
 	// to remove after collisions
 }
 
-void	sprites_render(t_game *game)
+static
+void	stt_hands_render(t_game *game)
 {
 	if (game->player.reload == true && game->player.shoot == false)
 	{
 		sprite_sheet_animate(&game->frame, game->reload,
-				(t_vecf32){SCREEN_X / 3.7, SCREEN_Y / 2}, 1.2);
+				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 	}
 	else
 	{
 		if (game->player.shoot == true)
 		{
 			sprite_sheet_animate(&game->frame, game->shoot,
-					(t_vecf32){SCREEN_X / 3.7, SCREEN_Y / 2}, 1.2);
+					(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 			if (game->shoot->end == true)
 			{
 				game->player.shoot = false;
@@ -42,10 +43,31 @@ void	sprites_render(t_game *game)
 		{
 			if (game->player.ori.x != 0 || game->player.ori.y != 0)
 				sprite_sheet_animate(&game->frame, game->walk,
-						(t_vecf32){SCREEN_X / 3.7, SCREEN_Y / 2}, 1.2);
+						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 			else
 				draw_texture(&game->frame, &game->walk->sheet[0],
-						(t_vecf32){SCREEN_X / 3.7, SCREEN_Y / 2}, 1.2);
+						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 		}
 	}
+}
+
+void	stt_cards_render(t_game *game)
+{
+	draw_texture(&game->frame, &game->ammo->sheet[0],
+			(t_vecf32){50, SCREEN_Y / 1.25}, 2);
+	draw_texture(&game->frame, &game->health->sheet[0],
+			(t_vecf32){215, SCREEN_Y / 1.25}, 2);
+	draw_texture(&game->frame, &game->pill->sheet[0],
+			(t_vecf32){380, SCREEN_Y / 1.25}, 2);
+}
+
+void	stt_hud_render(t_game *game)
+{
+	stt_hands_render(game);
+	stt_cards_render(game);
+}
+
+void	sprites_render(t_game *game)
+{
+	stt_hud_render(game);
 }

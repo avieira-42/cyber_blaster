@@ -61,7 +61,6 @@ void    stt_load_animation(void *mlx_ptr, t_anim *animation)
     while (i < animation->count)
     {
 		stt_path_cat(path, animation, i);
-		printf("path: %s\n", path);
 		stt_load_sprite(mlx_ptr, &(animation->sheet[i]), path);
         i++;
     }
