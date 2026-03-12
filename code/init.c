@@ -83,6 +83,7 @@ void	audio_init(t_game *game)
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	game->gun_shot = Mix_LoadWAV("assets/audio/gun_shot.wav");
+	game->gun_reload = Mix_LoadWAV("assets/audio/gun_reload.wav");
 }
 
 void	gun_init(t_game *game)

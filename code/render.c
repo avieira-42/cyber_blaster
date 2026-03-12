@@ -39,6 +39,7 @@ void	stt_hands_render(t_game *game)
 		if (game->reload->i - game->gun.first_i == 2
 				|| game->reload->i >= game->reload->count - 1)
 		{
+			Mix_PlayChannel(-1, game->gun_reload, 0);
 			game->gun.ammo++;
 			game->gun.first_i = -1;
 		}

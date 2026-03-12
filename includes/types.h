@@ -135,6 +135,7 @@ typedef struct s_game
 	int32_t		here;
 	// sounds
 	Mix_Chunk	*gun_shot;
+	Mix_Chunk	*gun_reload;
 	// hud
 	t_anim	*reload;
 	t_anim	*shoot;
