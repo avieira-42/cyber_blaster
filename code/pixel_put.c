@@ -51,8 +51,6 @@ void	draw_texture(t_img *frame, t_img *image, t_vecf32 pos, float scale)
 		while (y < image->height * scale)
 		{
 			color = stt_get_color(image, x / scale, y / scale);
-			if (x == 0 && y == 0)
-				printf("color: %i\n", color);
 			if (color != 2228223 && color != 1441791)
 				frame_pixel_put(frame, pos.x + x, pos.y + y, color);
 			y++;
