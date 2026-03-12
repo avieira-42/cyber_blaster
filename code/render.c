@@ -57,6 +57,7 @@ void	stt_hands_render(t_game *game)
 		game->gun.first_i = -1;
 		if (game->player.shoot == true)
 		{
+			game->walk->i = 0;
 			if (game->player.shoot_sound == true)
 			{
 				Mix_PlayChannel(1, game->gun_shot, 0);
@@ -78,8 +79,11 @@ void	stt_hands_render(t_game *game)
 				sprite_sheet_animate(&game->frame, game->walk,
 						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
 			else
-				draw_texture(&game->frame, &game->walk->sheet[5],
+			{
+				game->walk->i = 0;
+				draw_texture(&game->frame, &game->walk->sheet[0],
 						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+			}
 		}
 	}
 }
