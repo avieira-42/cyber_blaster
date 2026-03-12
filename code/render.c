@@ -31,12 +31,12 @@ void	stt_hands_render(t_game *game)
 	{
 		if (game->gun.first_i == -1)
 		{
-			game->reload->i = game->gun.ammo * 2;
+			game->reload->i = game->gun.ammo * 4;
 			game->gun.first_i = game->reload->i;
 		}
 		sprite_sheet_animate(&game->frame, game->reload,
 				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
-		if (game->reload->i - game->gun.first_i == 2
+		if (game->reload->i - game->gun.first_i == 4
 				|| game->reload->i >= game->reload->count - 1)
 		{
 			Mix_PlayChannel(2, game->gun_reload, 0);
