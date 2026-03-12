@@ -85,7 +85,8 @@ void	stt_hands_render(t_game *game)
 
 void	stt_cards_render(t_game *game)
 {
-	draw_texture(&game->frame, &game->ammo->sheet[0],
+	draw_texture(&game->frame,
+			&game->ammo->sheet[game->ammo->count - game->gun.ammo - 1],
 			(t_vecf32){50, SCREEN_Y / 1.25}, 2);
 	draw_texture(&game->frame, &game->health->sheet[0],
 			(t_vecf32){215, SCREEN_Y / 1.25}, 2);
