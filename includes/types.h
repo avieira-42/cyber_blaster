@@ -136,6 +136,9 @@ typedef struct s_game
 	// sounds
 	Mix_Chunk	*gun_shot;
 	Mix_Chunk	*gun_reload;
+	Mix_Chunk	*step;
+	Mix_Chunk	*step_fast;
+	Mix_Chunk	*current_step;
 	// hud
 	t_anim	*reload;
 	t_anim	*shoot;

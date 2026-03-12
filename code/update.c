@@ -40,10 +40,13 @@ void		player_move(t_game *game, t_player *player, t_cam *cam, float dt)
 
 	// TODO: try to make the player go back a little bit in the opposite direction to which it would go if colliding
 
+	t_vecf32	old_pos = player->pos;
 	if (collision_check(game, vec_sum(increment_vec_x, player->pos)) == false)
 		player->pos = vec_sum(increment_vec_x, player->pos);
 	if (collision_check(game, vec_sum(increment_vec_y, player->pos)) == false)
 		player->pos = vec_sum(increment_vec_y, player->pos);
+	if (old_pos.x != player->pos.x || old_pos.y != player->pos.y)
+		Mix_PlayChannel(-1, game->current_step, 0);
 
 	if (player->mouse_mov.x == 0)
 	{

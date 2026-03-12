@@ -24,7 +24,11 @@ int     key_pressed(int keysym, void *arg)
 	if (keysym == XK_i)
 		game->cam.dist_mod += 1;
 	if (keysym == XK_Shift_L)
+	{
 		game->player.speed_mod += 1;
+		game->current_step = game->step_fast;
+		game->walk->sprites_per_frame--;
+	}
 	if (keysym == XK_p)
 	{
 		if (game->pause == false)
@@ -65,7 +69,11 @@ int     key_released(int keysym, void *arg)
 	if (keysym == XK_i)
 		game->cam.dist_mod += -1;
 	if (keysym == XK_Shift_L)
+	{
 		game->player.speed_mod += -1;
+		game->current_step = game->step;
+		game->walk->sprites_per_frame++;
+	}
 	return (1);
 }
 

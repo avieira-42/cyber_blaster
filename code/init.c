@@ -56,7 +56,7 @@ void	sprites_init(t_game *game)
 	game->shoot->dt = &game->dt;
 	game->walk = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_walking", 8, ".xpm");
-	game->walk->sprites_per_frame = 4;
+	game->walk->sprites_per_frame = 3;
 	game->walk->dt = &game->dt;
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 17, ".xpm");
@@ -82,8 +82,12 @@ void	audio_init(t_game *game)
 {
 	SDL_Init(SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+	Mix_AllocateChannels(10);
 	game->gun_shot = Mix_LoadWAV("assets/audio/gun_shot.wav");
 	game->gun_reload = Mix_LoadWAV("assets/audio/gun_reload.wav");
+	game->step = Mix_LoadWAV("assets/audio/step.wav");
+	game->step_fast = Mix_LoadWAV("assets/audio/step_fast.wav");
+	game->current_step = game->step;
 }
 
 void	gun_init(t_game *game)
