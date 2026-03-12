@@ -56,7 +56,7 @@ void	sprites_init(t_game *game)
 	game->shoot->dt = &game->dt;
 	game->walk = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_walking", 8, ".xpm");
-	game->walk->sprites_per_frame = 3;
+	game->walk->sprites_per_frame = 4;
 	game->walk->dt = &game->dt;
 	game->reload = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hands/hands_reloading", 17, ".xpm");
