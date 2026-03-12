@@ -32,7 +32,8 @@ int     key_pressed(int keysym, void *arg)
 		else
 			game->pause = false;
 	}
-	if (keysym == XK_r)
+	if (keysym == XK_r && game->gun.ammo < 8
+			&& game->player.shoot == false)
 	{
 		if (game->player.reload == false)
 			game->player.reload = true;
@@ -75,8 +76,10 @@ int	mouse_pressed(int keysym, int x, int y, void *arg)
 	(void)x;
 	(void)y;
 	game = (t_game *)arg;
-	if (keysym == 1 && game->player.shoot == false)
+	if (keysym == 1 && game->player.shoot == false
+			&& game->gun.ammo > 0)
 	{
+		game->gun.ammo--;
 		game->player.shoot = true;
 		game->player.shoot_sound = true;
 	}
