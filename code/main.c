@@ -80,6 +80,7 @@ void	game_init(t_game *game)
 	sprites_init(game);
 	audio_init(game);
 	gun_init(game);
+	input_init(game);
 
 	// DEBUG
 	game->here = 0;

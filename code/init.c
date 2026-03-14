@@ -64,7 +64,7 @@ void	sprites_init(t_game *game)
 	game->reload->dt = &game->dt;
 	// cards
 	game->ammo = sprite_sheet_init(game->mlx_ptr,
-			"assets/sprites/xpm/hud/hud_ammo/ammo", 9, ".xpm");
+			"assets/sprites/xpm/hud/hud_ammo/ammo", 10, ".xpm");
 	game->ammo->dt = &game->dt;
 	game->health = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_health/health", 10, ".xpm");
@@ -87,6 +87,7 @@ void	audio_init(t_game *game)
 	game->gun_reload = Mix_LoadWAV("assets/audio/gun_reload.wav");
 	game->step = Mix_LoadWAV("assets/audio/step.wav");
 	game->step_fast = Mix_LoadWAV("assets/audio/step_fast.wav");
+	game->no_ammo = Mix_LoadWAV("assets/audio/no_ammo.wav");
 	game->current_step = game->step;
 }
 
@@ -95,4 +96,9 @@ void	gun_init(t_game *game)
 	game->gun.ammo = 8;
 	game->gun.max_ammo = 8;
 	game->gun.first_i = -1;
+}
+
+void	input_init(t_game *game)
+{
+	game->mouse_l = false;
 }

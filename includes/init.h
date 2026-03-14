@@ -10,6 +10,7 @@ void	cam_init(t_cam *cam, t_player player);
 void	sprites_init(t_game *game);
 void	audio_init(t_game *game);
 void	gun_init(t_game *game);
+void	input_init(t_game *game);
 t_anim	*sprite_sheet_init(void *mlx, char *base_path, int32_t count, char *file_type);
 
 #endif

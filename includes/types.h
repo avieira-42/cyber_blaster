@@ -134,11 +134,14 @@ typedef struct s_game
 	int32_t		start;
 	int32_t		here;
 	// sounds
+	Mix_Chunk	*no_ammo;
 	Mix_Chunk	*gun_shot;
 	Mix_Chunk	*gun_reload;
 	Mix_Chunk	*step;
 	Mix_Chunk	*step_fast;
 	Mix_Chunk	*current_step;
+	// inputs
+	bool		mouse_l;
 	// hud
 	t_anim	*reload;
 	t_anim	*shoot;

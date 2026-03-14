@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: avieira- <avieira-@student.42porto.com>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/14 14:07:22 by avieira-          #+#    #+#             */
-/*   Updated: 2026/03/14 14:07:25 by avieira-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include "types.h"
@@ -48,7 +36,7 @@ void	stt_reload_handler(t_game *game)
 	if (game->reload->i - game->gun.first_i == 4
 			|| game->reload->i >= game->reload->count - 1)
 	{
-		Mix_PlayChannel(2, game->gun_reload, 0);
+		Mix_PlayChannel(1, game->gun_reload, 0);
 		game->gun.ammo++;
 		game->gun.first_i = -1;
 	}
@@ -64,6 +52,7 @@ static
 void	stt_shooting_handler(t_game *game)
 {
 	game->walk->i = 0;
+	game->gun.first_i = -1;
 	if (game->player.shoot_sound == true)
 	{
 		Mix_PlayChannel(1, game->gun_shot, 0);
@@ -112,9 +101,20 @@ void	stt_hands_render(t_game *game)
 	static
 void	stt_cards_render(t_game *game)
 {
-	draw_texture(&game->frame,
-			&game->ammo->sheet[game->ammo->count - game->gun.ammo - 1],
-			(t_vecf32){50, SCREEN_Y / 1.25}, 2);
+	if (game->mouse_l == true)
+	{
+		game->mouse_l = false;
+		Mix_PlayChannel(1, game->no_ammo, 0);
+		draw_texture(&game->frame,
+				&game->ammo->sheet[game->ammo->count - 1],
+				(t_vecf32){50, SCREEN_Y / 1.25}, 2);
+	}
+	else
+	{
+		draw_texture(&game->frame,
+				&game->ammo->sheet[game->ammo->count - game->gun.ammo - 2],
+				(t_vecf32){50, SCREEN_Y / 1.25}, 2);
+	}
 	draw_texture(&game->frame, &game->health->sheet[0],
 			(t_vecf32){215, SCREEN_Y / 1.25}, 2);
 	draw_texture(&game->frame, &game->pill->sheet[0],
