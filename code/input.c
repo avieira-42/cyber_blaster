@@ -90,6 +90,7 @@ int	mouse_pressed(int keysym, int x, int y, void *arg)
 		game->gun.ammo--;
 		game->player.shoot = true;
 		game->player.shoot_sound = true;
+		game->player.reload = false;
 	}
 	return (1);
 }

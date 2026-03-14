@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avieira- <avieira-@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/14 14:07:22 by avieira-          #+#    #+#             */
+/*   Updated: 2026/03/14 14:07:25 by avieira-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include "types.h"
@@ -24,70 +36,80 @@ void	space_render(t_game *game)
 }
 
 static
-void	stt_hands_render(t_game *game)
+void	stt_reload_handler(t_game *game)
 {
-	// reload
-	if (game->player.reload == true && game->player.shoot == false)
+	if (game->gun.first_i == -1)
 	{
-		if (game->gun.first_i == -1)
-		{
-			game->reload->i = game->gun.ammo * 4;
-			game->gun.first_i = game->reload->i;
-		}
-		sprite_sheet_animate(&game->frame, game->reload,
-				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
-		if (game->reload->i - game->gun.first_i == 4
-				|| game->reload->i >= game->reload->count - 1)
-		{
-			Mix_PlayChannel(2, game->gun_reload, 0);
-			game->gun.ammo++;
-			game->gun.first_i = -1;
-		}
-		if (game->gun.ammo == game->gun.max_ammo)
-		{
-			game->player.reload = false;
-			game->gun.first_i = -1;
-			game->reload->i = 0;
-		}
+		game->reload->i = game->gun.ammo * 4;
+		game->gun.first_i = game->reload->i;
 	}
-	else
+	sprite_sheet_animate(&game->frame, game->reload,
+			(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+	if (game->reload->i - game->gun.first_i == 4
+			|| game->reload->i >= game->reload->count - 1)
 	{
-		// shoot
+		Mix_PlayChannel(2, game->gun_reload, 0);
+		game->gun.ammo++;
+		game->gun.first_i = -1;
+	}
+	if (game->gun.ammo == game->gun.max_ammo)
+	{
 		game->player.reload = false;
 		game->gun.first_i = -1;
-		if (game->player.shoot == true)
-		{
-			game->walk->i = 0;
-			if (game->player.shoot_sound == true)
-			{
-				Mix_PlayChannel(1, game->gun_shot, 0);
-				game->player.shoot_sound = false;
-			}
-			sprite_sheet_animate(&game->frame, game->shoot,
-					(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
-			if (game->shoot->end == true)
-			{
-				game->player.shoot = false;
-				game->shoot->end = false;
-				game->shoot->i = 0;
-			}
-		}
-		// walk
-		if (game->player.shoot == false)
-		{
-			if (game->player.ori.x != 0 || game->player.ori.y != 0)
-				sprite_sheet_animate(&game->frame, game->walk,
-						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
-			else
-			{
-				game->walk->i = 0;
-				draw_texture(&game->frame, &game->walk->sheet[0],
-						(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
-			}
-		}
+		game->reload->i = 0;
 	}
 }
 
+static
+void	stt_shooting_handler(t_game *game)
+{
+	game->walk->i = 0;
+	if (game->player.shoot_sound == true)
+	{
+		Mix_PlayChannel(1, game->gun_shot, 0);
+		game->player.shoot_sound = false;
+	}
+	sprite_sheet_animate(&game->frame, game->shoot,
+			(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+	if (game->shoot->end == true)
+	{
+		game->player.shoot = false;
+		game->shoot->end = false;
+		game->shoot->i = 0;
+	}
+}
+
+	static
+void	stt_walking_handler(t_game *game)
+{
+	if (game->player.ori.x != 0 || game->player.ori.y != 0)
+	{
+		sprite_sheet_animate(&game->frame, game->walk,
+				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+	}
+	else
+	{
+		game->walk->i = 0;
+		draw_texture(&game->frame, &game->walk->sheet[0],
+				(t_vecf32){SCREEN_X / 5.3, SCREEN_Y / 3}, 1.6);
+	}
+}
+
+	static
+void	stt_hands_render(t_game *game)
+{
+	if (game->player.reload == true && game->player.shoot == false)
+		stt_reload_handler(game);
+	else
+	{
+		if (game->player.shoot == true)
+			stt_shooting_handler(game);
+		else
+			stt_walking_handler(game);
+	}
+}
+
+	static
 void	stt_cards_render(t_game *game)
 {
 	draw_texture(&game->frame,
@@ -99,6 +121,7 @@ void	stt_cards_render(t_game *game)
 			(t_vecf32){380, SCREEN_Y / 1.25}, 2);
 }
 
+	static
 void	stt_hud_render(t_game *game)
 {
 	stt_hands_render(game);
