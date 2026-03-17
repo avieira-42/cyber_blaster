@@ -7,7 +7,7 @@ OPTIMIZE = -O3
 
 INCLUDES = includes/
 
-CFLAGS = -I $(INCLUDES) -Wall -Wextra -Werror -g $(OPTIMIZE)
+CFLAGS = -I $(INCLUDES) -Wall -Wextra -Werror $(OPTIMIZE)
 
 CC = cc $(CFLAGS)
 
