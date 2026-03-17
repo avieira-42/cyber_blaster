@@ -3,8 +3,7 @@
 #include "libft_math.h"
 
 
-	/*For the dda ray_cast algorithm to work, all the coordinates
-		must be translated to tile map unit coordinates, with
+	/*For the dda ray_cast algorithm to work, all the coordinates must be translated to tile map unit coordinates, with
 		the small caveat that theres the necessity of storing
 		two different data types of the player position, one
 		as integer number, so the collision is found, the other
@@ -115,8 +114,16 @@ void	ray_cast(t_game *game, t_ray *ray)
 		if (ray->p_map_pos.x < game->map.width
 				&& ray->p_map_pos.y < game->map.height
 				&& ray->p_map_pos.x >= 0 && ray->p_map_pos.y >= 0)
-			if (game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '1')
+		{
+			if (game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '1'
+					|| game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '2'
+					|| game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '3'
+					|| game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '4')
+			{
 				ray->hit = true;
+				ray->wall = game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] - '0';
+			}
+		}
 	}
 	if (ray->hit == true)
 		ray->wall_x = stt_calculate_wall_x(*ray);

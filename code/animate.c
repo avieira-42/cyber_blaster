@@ -1,7 +1,7 @@
 #include "types.h"
 #include "render.h"
 
-void	sprite_sheet_animate(t_img *frame, t_anim *animation, t_vecf32 pos, float scale)
+int32_t	sprite_sheet_update(t_anim *animation)
 {
 	int32_t	i;
 
@@ -17,5 +17,11 @@ void	sprite_sheet_animate(t_img *frame, t_anim *animation, t_vecf32 pos, float s
 			animation->end = true;
 		}
 	}
+	return (i);
+}
+
+void	sprite_sheet_animate(t_img *frame, t_anim *animation, t_vecf32 pos, float scale)
+{
+	const int32_t	i = sprite_sheet_update(animation);
 	draw_texture(frame, &animation->sheet[i], pos, scale);
 }

@@ -21,7 +21,10 @@ void	time_delta_get(t_game *game)
 
 bool	collision_check(t_game *game, t_vecf32 new_pos)
 {
-	if (game->map.grid[(int)new_pos.y][(int)new_pos.x] == '1')
+	if (game->map.grid[(int)new_pos.y][(int)new_pos.x] == '1'
+			|| game->map.grid[(int)new_pos.y][(int)new_pos.x] == '2'
+			|| game->map.grid[(int)new_pos.y][(int)new_pos.x] == '3'
+			|| game->map.grid[(int)new_pos.y][(int)new_pos.x] == '4')
 		return (true);
 	return (false);
 }

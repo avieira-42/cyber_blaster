@@ -19,6 +19,7 @@ void	ray_draw(t_game *game, t_player player, t_ray ray, int32_t x);
 void    grid_draw(t_img *frame, t_vecf32 map_max,
 		t_vecf32 map_tile, t_veci32 map_size);
 void	sprites_render(t_game *game);
+int32_t	sprite_sheet_update(t_anim *animation);
 void	sprite_sheet_animate(t_img *frame, t_anim *animation, t_vecf32 pos, float scale);
 int32_t	get_color(const t_img *image, int32_t x, int32_t y);
 

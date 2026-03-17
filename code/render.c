@@ -110,6 +110,13 @@ void	stt_cards_render(t_game *game)
 			(t_vecf32){380, SCREEN_Y / 1.25}, 2);
 }
 
+static
+void	stt_ads_render(t_game *game)
+{
+	sprite_sheet_update(game->ad_1);
+	sprite_sheet_update(game->ad_2);
+}
+
 	static
 void	stt_hud_render(t_game *game)
 {
@@ -120,4 +127,5 @@ void	stt_hud_render(t_game *game)
 void	sprites_render(t_game *game)
 {
 	stt_hud_render(game);
+	stt_ads_render(game);
 }

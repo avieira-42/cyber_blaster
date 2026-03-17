@@ -84,6 +84,7 @@ typedef struct	s_ray
 	t_vecf32	hit_pos;
 	int32_t		color;
 	int32_t		side;
+	int32_t		wall;
 	float		wall_x;
 	float		final_len;
 	float		perp_wall_dist;
@@ -94,6 +95,7 @@ typedef struct	s_column
 {
 	t_vecf32	start;
 	t_vecf32	end;
+	float		old_start_y;
 	float		height;
 
 }	t_column;

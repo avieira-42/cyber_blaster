@@ -65,28 +65,36 @@ void	sprites_init(t_game *game)
 	// cards
 	game->ammo = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_ammo/ammo", 10, ".xpm");
+	game->ammo->sprites_per_frame = 0;
 	game->ammo->dt = &game->dt;
 	game->health = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_health/health", 10, ".xpm");
+	game->health->sprites_per_frame = 0;
 	game->health->dt = &game->dt;
 	game->pill = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/hud/hud_pill/pill", 2, ".xpm");
+	game->pill->sprites_per_frame = 0;
 	game->pill->dt = &game->dt;
 	// BACKGROUND
 	game->city = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/city", 5, ".xpm");
+	game->city->sprites_per_frame = 0;
 	game->city->dt = &game->dt;
 	// WALLS
 	game->ad_1 = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/ad_1/ad1_", 25, ".xpm");
 	game->ad_1->dt = &game->dt;
+	game->ad_1->sprites_per_frame = 3;
 	game->ad_2 = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/ad_2/ad2_", 77, ".xpm");
 	game->ad_2->dt = &game->dt;
+	game->ad_2->sprites_per_frame = 3;
 	game->wall = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/lab", 4, ".xpm");
+	game->wall->sprites_per_frame = 0;
 	game->floor = sprite_sheet_init(game->mlx_ptr,
 			"assets/sprites/xpm/tiles/floor", 1, ".xpm");
+	game->floor->sprites_per_frame = 0;
 	// WALLS
 }
 

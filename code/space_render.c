@@ -72,7 +72,14 @@ void	ray_draw(t_game *game, t_player player, t_ray ray, int32_t x)
 	(void)p_pos;
 	if (!ray.hit)
 		return ;
-	column_render(&game->frame, ray, player, x, &game->ad_1->sheet[0]);
+	if (ray.wall == 1)
+		column_render(&game->frame, ray, player, x, &game->ad_1->sheet[game->ad_1->i]);
+	else if (ray.wall == 2)
+		column_render(&game->frame, ray, player, x, &game->ad_2->sheet[game->ad_2->i]);
+	else if (ray.wall == 3)
+		column_render(&game->frame, ray, player, x, &game->wall->sheet[0]);
+	else if (ray.wall == 4)
+		column_render(&game->frame, ray, player, x, &game->wall->sheet[1]);
 }
 
 void	fov_draw(t_game *game)

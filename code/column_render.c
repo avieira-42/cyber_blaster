@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   column_render.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: avieira- <avieira-@student.42porto.com>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 04:49:04 by avieira-          #+#    #+#             */
-/*   Updated: 2026/03/17 04:54:02 by avieira-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdbool.h>
 #include "render.h"
 #include "types.h"
@@ -18,6 +6,7 @@
 t_column	column_init(t_ray ray, t_player player, int32_t x)
 {
 	t_column	column;
+	float		offset;
 
 	// calculate perp_wall_dist
 	/*if (ray.side == 0)
@@ -31,19 +20,25 @@ t_column	column_init(t_ray ray, t_player player, int32_t x)
 
 	//	calculate height of line to be drawn
 	column.height = SCREEN_Y / ray.perp_wall_dist;
+	column.old_start_y = 0;
 
 	// calculate lowest and highest pixel to fill in current stripe
 	column.end.x = x;
 	column.start.x = x;
 	//column.start.y = -column.height / 2 + player.mouse_mov.y / 2;
 	//column.end.y = column.height / 2 + player.mouse_mov.y / 2;
-	column.start.y = SCREEN_Y / 2 - column.height / 2 + player.mouse_mov.y / 2;
-	column.end.y   = SCREEN_Y / 2 + column.height / 2 + player.mouse_mov.y / 2;
+	offset = player.mouse_mov.y / 2;
+	column.start.y = SCREEN_Y / 2 - column.height / 2 + offset;
+	column.end.y   = SCREEN_Y / 2 + column.height / 2 + offset;
+
+	// WALL LIMIT RENDER FIX >>>>>
+	column.old_start_y = column.start.y;
 	if (column.start.y < 0)
 		column.start.y = 0;
-	if (column.end.y >= SCREEN_Y)
+	else if (column.end.y >= SCREEN_Y)
 		column.end.y = SCREEN_Y - 1;
-	column.height = ft_abs(column.end.y - column.start.y);
+	// <<<<< WALL LIMIT RENDER FIX
+
 	return (column);
 }
 
@@ -56,15 +51,15 @@ void	column_pixel_put(t_img *frame, t_ray ray, t_column column, const t_img *img
 	const float	step = (float)img->height / (float)column.height;
 
 	x = ray.wall_x * (float)img->width;
-	printf("first_x: %f\n", x);
 	if (ray.side == 0 && ray.dir.x > 0)
 		x = img->width - x - 1;
 	if (ray.side == 1 && ray.dir.y < 0)
 		x = img->width - x -1;
-	printf("x: %f\n", x);
 	i = 0;
-	y = 0;
-	text_pos = 0;
+	if (column.old_start_y < 0)
+		text_pos = -column.old_start_y * step;
+	else
+		text_pos = 0;
 	while(i < column.height)
 	{
 		y = (int32_t)text_pos;
