@@ -49,7 +49,7 @@ void	background_render(t_game *game)
 void	render(t_game *game)
 {
 	window_clear(&game->frame, 0x000000);
-	//background_render(game);
+	background_render(game);
 	//debug
 	space_render(game);
 	//debug
