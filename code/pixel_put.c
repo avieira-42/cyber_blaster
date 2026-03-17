@@ -27,8 +27,7 @@ void	window_clear(t_img *frame, int32_t color)
 	}
 }
 
-static
-int32_t	stt_get_color(t_img *image, int32_t x, int32_t y)
+int32_t	get_color(const t_img *image, int32_t x, int32_t y)
 {
 	int32_t	*color;
 
@@ -50,7 +49,7 @@ void	draw_texture(t_img *frame, t_img *image, t_vecf32 pos, float scale)
 		y = 0;
 		while (y < image->height * scale)
 		{
-			color = stt_get_color(image, x / scale, y / scale);
+			color = get_color(image, x / scale, y / scale);
 			if (color != 2228223 && color != 1441791)
 				frame_pixel_put(frame, pos.x + x, pos.y + y, color);
 			y++;

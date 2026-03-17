@@ -84,6 +84,7 @@ typedef struct	s_ray
 	t_vecf32	hit_pos;
 	int32_t		color;
 	int32_t		side;
+	float		wall_x;
 	float		final_len;
 	float		perp_wall_dist;
 	bool		hit;
@@ -151,6 +152,11 @@ typedef struct s_game
 	t_anim	*pill;
 	t_anim	*city;
 	// tiles
+	t_anim	*ad_1;
+	t_anim	*ad_2;
+	t_anim	*wall;
+	t_anim	*floor;
+	t_anim	*ceiling;
 	// background
 	// enemies
 }	t_game;

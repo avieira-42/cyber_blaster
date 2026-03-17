@@ -72,7 +72,7 @@ void	ray_draw(t_game *game, t_player player, t_ray ray, int32_t x)
 	(void)p_pos;
 	if (!ray.hit)
 		return ;
-	column_render(&game->frame, ray, player, x);
+	column_render(&game->frame, ray, player, x, &game->ad_1->sheet[0]);
 }
 
 void	fov_draw(t_game *game)

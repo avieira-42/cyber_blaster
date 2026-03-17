@@ -101,20 +101,9 @@ void	stt_hands_render(t_game *game)
 	static
 void	stt_cards_render(t_game *game)
 {
-	if (game->mouse_l == true)
-	{
-		game->mouse_l = false;
-		Mix_PlayChannel(1, game->no_ammo, 0);
-		draw_texture(&game->frame,
-				&game->ammo->sheet[game->ammo->count - 1],
-				(t_vecf32){50, SCREEN_Y / 1.25}, 2);
-	}
-	else
-	{
-		draw_texture(&game->frame,
-				&game->ammo->sheet[game->ammo->count - game->gun.ammo - 2],
-				(t_vecf32){50, SCREEN_Y / 1.25}, 2);
-	}
+	draw_texture(&game->frame,
+			&game->ammo->sheet[game->ammo->count - game->gun.ammo - 2],
+			(t_vecf32){50, SCREEN_Y / 1.25}, 2);
 	draw_texture(&game->frame, &game->health->sheet[0],
 			(t_vecf32){215, SCREEN_Y / 1.25}, 2);
 	draw_texture(&game->frame, &game->pill->sheet[0],

@@ -42,7 +42,8 @@
    			calculate y_ray
    		check ray collision */
 
-void	ray_cast_init(t_player *player, t_ray *ray)
+static
+void	stt_ray_cast_init(t_player *player, t_ray *ray)
 {
 	ray->p_pos = (t_vecf32){player->pos.x, player->pos.y};
 	ray->p_map_pos = (t_veci32){ray->p_pos.x, ray->p_pos.y};
@@ -72,12 +73,27 @@ void	ray_cast_init(t_player *player, t_ray *ray)
 	}
 }
 
+static
+float	stt_calculate_wall_x(t_ray ray)
+{
+	float			wall_x;
+	const t_vecf32	hit_tile_pos = vec_sum(ray.p_pos,
+			vec_scalar_mult(ray.dir, ray.final_len));
+
+	if (ray.side == 0)
+		wall_x = hit_tile_pos.y;
+	else
+		wall_x = hit_tile_pos.x;
+
+	return (wall_x - (int32_t)wall_x);
+}
+
 void	ray_cast(t_game *game, t_ray *ray)
 {
 	int	steps;
 
 	steps = 0;
-	ray_cast_init(&game->player, ray);
+	stt_ray_cast_init(&game->player, ray);
 	while (!ray->hit)
 	{
 		if (ray->ray_len.x < ray->ray_len.y)
@@ -102,4 +118,6 @@ void	ray_cast(t_game *game, t_ray *ray)
 			if (game->map.grid[ray->p_map_pos.y][ray->p_map_pos.x] == '1')
 				ray->hit = true;
 	}
+	if (ray->hit == true)
+		ray->wall_x = stt_calculate_wall_x(*ray);
 }

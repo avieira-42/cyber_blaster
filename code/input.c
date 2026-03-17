@@ -92,8 +92,8 @@ int	mouse_pressed(int keysym, int x, int y, void *arg)
 		game->player.shoot_sound = true;
 		game->player.reload = false;
 	}
-	if (keysym == 1 && game->gun.ammo == 0)
-		game->mouse_l = true;
+	else if (keysym == 1 && game->gun.ammo == 0)
+		Mix_PlayChannel(3, game->no_ammo, 0);
 	return (1);
 }
 

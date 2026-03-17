@@ -14,25 +14,13 @@ void	stt_path_cat(char *path, t_anim *anim, int32_t sprite_number)
 	i = 0;
 	j = 0;
 	while (anim->base_path[i])
-	{
-		path[j] = anim->base_path[i];
-		i++;
-		j++;
-	}
+		path[j++] = anim->base_path[i++];
 	i = 0;
 	while(number[i])
-	{
-		path[j] = number[i];
-		i++;
-		j++;
-	}
+		path[j++] = number[i++];
 	i = 0;
 	while (anim->file_type[i])
-	{
-		path[j] = anim->file_type[i];
-		i++;
-		j++;
-	}
+		path[j++] = anim->file_type[i++];
 	path[j] = '\0';
 }
 

@@ -74,8 +74,20 @@ void	sprites_init(t_game *game)
 	game->pill->dt = &game->dt;
 	// BACKGROUND
 	game->city = sprite_sheet_init(game->mlx_ptr,
-			"assets/sprites/xpm/tiles/city", 4, ".xpm");
+			"assets/sprites/xpm/tiles/city", 5, ".xpm");
 	game->city->dt = &game->dt;
+	// WALLS
+	game->ad_1 = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/tiles/ad_1/ad1_", 25, ".xpm");
+	game->ad_1->dt = &game->dt;
+	game->ad_2 = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/tiles/ad_2/ad2_", 77, ".xpm");
+	game->ad_2->dt = &game->dt;
+	game->wall = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/tiles/lab", 4, ".xpm");
+	game->floor = sprite_sheet_init(game->mlx_ptr,
+			"assets/sprites/xpm/tiles/floor", 1, ".xpm");
+	// WALLS
 }
 
 void	audio_init(t_game *game)
